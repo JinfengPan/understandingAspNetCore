@@ -6,6 +6,8 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
+using FishTank.Services;
+using Microsoft.Extensions.Logging;
 
 namespace FishTank
 {
@@ -15,16 +17,24 @@ namespace FishTank
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ISensorDataService, SensorDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(minLevel: LogLevel.Information);
             app.UseIISPlatformHandler();
+
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("Hello World!");
+                await next();
+            });
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync("Hello World Again!");
             });
         }
 
