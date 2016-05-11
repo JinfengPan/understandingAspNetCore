@@ -31,6 +31,14 @@ namespace FishTank.Services
                     IconCssClass = "fa-sliders",
                     Url = urlHelper.Action("GetWaterTemperaturChart", "History")
                 },
+                FishMotionTile = new SensorTileViewModel
+                {
+                    Title = "fish motion",
+                    Value = sensorDataService.GetFishMotionPercentage().Value,
+                    ColorCssClass = "panel-green",
+                    IconCssClass = "fa-adjust",
+                    Url = urlHelper.Action("GetWaterOpacityPercentageChart", "History")
+                },
                 WaterOpacityTile = new SensorTileViewModel
                 {
                     Title = "Water opacity",
