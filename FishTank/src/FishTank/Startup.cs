@@ -19,6 +19,7 @@ namespace FishTank
         public Startup(IHostingEnvironment hostingEnvironment)
         {
             this.hostingEnvironment = hostingEnvironment;
+
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
